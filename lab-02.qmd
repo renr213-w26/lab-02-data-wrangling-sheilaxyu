@@ -34,6 +34,14 @@ The code above displays calculation the number of counties in each state. Based 
 
 ### Question 2
 
+```{r}
+midwest %>%
+  count(county, name = "n_states") %>%
+  filter(n_states == n_distinct(midwest$state))
+```
+
+Based on the result above, the county that fills in the blank of “Look at that, there is a county called \_\_\_ in each state in this dataset!” includes Crawford, Jackson and Monroe.
+
 \newpage
 
 ### Question 3
