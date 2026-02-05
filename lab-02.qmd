@@ -1,21 +1,17 @@
 ---
 title: "Lab 2 - Data wrangling"
-author: "John Q. Student"
-date: "June 24, 1497"
-format: 
-  html: default # for speed
-  pdf: default # for final output
-
+author: "Sheila Yu"
+date: "Feburary 4th, 2026"
+format: html
 ---
-
 
 ```{r}
 #| eval: true
 #| message: false
 
 library(tidyverse)
+data <- midwest
 ```
-
 
 # Questions
 
@@ -23,6 +19,16 @@ library(tidyverse)
 
 ### Question 1
 
+```{r}
+counties_by_state <- data %>%
+  count(state, name = "n_counties") %>%
+  arrange(desc(n_counties))
+
+counties_by_state
+
+```
+
+The code above displays calculation the number of counties in each state. Based on the calculation, Illinois (IL) has the highest number of counties, with a total of 102 counties. Wisconsin (WI) has the lowest number of counties, with a total of 72 counties.
 
 \newpage
 
@@ -31,6 +37,7 @@ library(tidyverse)
 \newpage
 
 ### Question 3
+
 \newpage
 
 ### Question 5
@@ -51,6 +58,4 @@ library(tidyverse)
 
 ## Part 2
 
-
 ### Question 9
-
