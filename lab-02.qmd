@@ -35,7 +35,7 @@ The code above displays calculation the number of counties in each state. Based 
 ### Question 2
 
 ```{r}
-midwest %>%
+data %>%
   count(county, name = "n_states") %>%
   filter(n_states == n_distinct(midwest$state))
 ```
