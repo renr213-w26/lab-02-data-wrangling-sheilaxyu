@@ -46,7 +46,30 @@ Based on the result above, the county that fills in the blank of “Look at that
 
 ### Question 3
 
+Part a:\
+
+```{r}
+midwest %>%
+  filter(popdensity > 25000) %>%
+  select(county, state, popdensity, poptotal, area) %>%
+  arrange(desc(popdensity))
+```
+
+Based on the results above, there are a total of nine counties with a population density above 25,000. These counties include: Cook, Milwaukee, Wayne, Cuyahoga, Du Page, Marion, Hamilton, Franklin and Macomb.
+
+Part b:
+
+```{r}
+midwest %>%
+  filter(popdensity == max(popdensity, na.rm = TRUE)) %>%
+  select(county, state, popdensity, poptotal, area)
+```
+
+Based on the result above, the county with the highest population density is Cook.
+
 \newpage
+
+### Question 4
 
 ### Question 5
 
