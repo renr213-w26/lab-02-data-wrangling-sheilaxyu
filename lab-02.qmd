@@ -195,6 +195,30 @@ Above is the visualization of the relationship between college education and pov
 
 ### Question 7
 
+Part a:
+
+```{r}
+state_population <- midwest %>%
+  group_by(state) %>%
+  summarise(total_population = sum(poptotal, na.rm = TRUE)) %>%
+  arrange(desc(total_population))
+
+state_population
+```
+
+Part b:
+
+```{r}
+state_population %>%
+  mutate(
+    population_proportion = total_population / sum(total_population)
+  ) %>%
+  arrange(desc(population_proportion))
+
+```
+
+Part c: Illinois is the most populous Midwestern state, containing 27% of the total Midwest population. Wisconsin is the least populous state, accounting for only 12% of the Midwest population.
+
 \newpage
 
 ### Question 8
