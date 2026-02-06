@@ -49,7 +49,7 @@ Based on the result above, the county that fills in the blank of “Look at that
 Part a:\
 
 ```{r}
-midwest %>%
+data %>%
   filter(popdensity > 25000) %>%
   select(county, state, popdensity, poptotal, area) %>%
   arrange(desc(popdensity))
@@ -60,7 +60,7 @@ Based on the results above, there are a total of nine counties with a population
 Part b:
 
 ```{r}
-midwest %>%
+data %>%
   filter(popdensity == max(popdensity, na.rm = TRUE)) %>%
   select(county, state, popdensity, poptotal, area)
 ```
@@ -72,7 +72,7 @@ Based on the result above, the county with the highest population density is Coo
 ### Question 4
 
 ```{r}
-midwest %>%
+data %>%
   summarise(
     median_density = median(popdensity, na.rm = TRUE),
     q1 = quantile(popdensity, 0.25, na.rm = TRUE),
@@ -87,6 +87,30 @@ The distribution of population density of counties is unimodal and extremely rig
 \newpage
 
 ### Question 5
+
+```{r}
+data %>%
+  mutate(metro = if_else(inmetro == 1, "Yes", "No")) %>%
+  count(state, metro) %>%
+  group_by(state) %>%
+  mutate(proportion = n / sum(n)) %>%
+  ungroup()
+```
+
+Here is a table with results from the calculation above displayed and rounded of to nearest percentage:
+
+| State | Metro or not | Proportion of population in the area |
+|-------|--------------|--------------------------------------|
+| IL    | No           | 73%                                  |
+| IL    | Yes          | 27%                                  |
+| IN    | No           | 60%                                  |
+| IN    | Yes          | 40%                                  |
+| MI    | No           | 70%                                  |
+| MI    | Yes          | 30%                                  |
+| OH    | No           | 55%                                  |
+| OH    | Yes          | 45%                                  |
+| WI    | No           | 72%                                  |
+| WI    | Yes          | 28%                                  |
 
 \newpage
 
