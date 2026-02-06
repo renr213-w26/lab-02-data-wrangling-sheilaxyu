@@ -46,7 +46,7 @@ Based on the result above, the county that fills in the blank of “Look at that
 
 ### Question 3
 
-Part a:\
+Part a:
 
 ```{r}
 data %>%
@@ -115,6 +115,81 @@ Here is a table with results from the calculation above displayed and rounded of
 \newpage
 
 ### Question 6
+
+Part a:
+
+```{r}
+data %>%
+  filter(
+    percollege < 12,
+    percbelowpoverty > 45
+  ) %>%
+  select(county, state, percbelowpoverty, percollege)
+```
+
+The outlier in the orange square is the county Menominee.
+
+Part b:
+
+```{r}
+data %>%
+  filter(
+    percollege > 40,
+    percbelowpoverty < 20
+  ) %>%
+  select(county, state, percbelowpoverty, percollege)
+```
+
+The outliers in the red square are: Champaign, Du Page, Hamilton, Washtenaw, Dane.
+
+Part c:
+
+```{r}
+data %>%
+  filter(
+    (percollege < 12 & percbelowpoverty > 45) |
+    (percollege > 40 & percbelowpoverty < 20)
+  ) %>%
+  select(county, state, percbelowpoverty, percollege)
+```
+
+Above is a list of all the outliers in the orange and red square combined.
+
+Part d:
+
+```{r}
+midwest <- midwest %>%
+  mutate(
+    potential_outlier = if_else(
+      (percollege < 12 & percbelowpoverty > 45) |
+      (percollege > 40 & percbelowpoverty < 20),
+      "Yes",
+      "No"
+    )
+  )
+
+midwest %>%
+  select(county, state, percbelowpoverty, percollege, potential_outlier) %>%
+  arrange(potential_outlier)
+```
+
+The updated dataset, *midwest*, now contains an additional column called potential_outlier, which indicates whether a county is included in the list of potential outliers identified in part c.
+
+Part e:
+
+```{r}
+ggplot(midwest, aes(x = percollege, y = percbelowpoverty, color = potential_outlier)) +
+  geom_point(alpha = 0.7) +
+  labs(
+    x = "Percentage with a college degree",
+    y = "Percentage below poverty",
+    title = "Percentage with a college degree versus poverty rate",
+    subtitle = "Potential outliers highlighted"
+  ) +
+  theme_minimal()
+```
+
+Above is the visualization of the relationship between college education and poverty, with colour highlighting the potential outliers in blue.
 
 \newpage
 
