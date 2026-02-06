@@ -223,6 +223,19 @@ Part c: Illinois is the most populous Midwestern state, containing 27% of the to
 
 ### Question 8
 
+```{r}
+state_poverty <- midwest %>%
+  group_by(state) %>%
+  summarise(
+    mean_percbelowpoverty = mean(percbelowpoverty, na.rm = TRUE)
+  )
+
+state_poverty %>%
+  arrange(mean_percbelowpoverty)
+```
+
+Based on the result above, Wisconsin has the lowest average percentage of population (10%) below the poverty line across its counties. Mississippi has the highest average percentage of population (14%) below the poverty line across its counties.
+
 \newpage
 
 ## Part 2

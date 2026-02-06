@@ -162,18 +162,306 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="question-3" class="level3">
 <h3 class="anchored" data-anchor-id="question-3">Question 3</h3>
+<p>Part a:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(popdensity <span class="sc">&gt;</span> <span class="dv">25000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, popdensity, poptotal, area) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(popdensity))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 5
+  county    state popdensity poptotal  area
+  &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;    &lt;int&gt; &lt;dbl&gt;
+1 COOK      IL        88018.  5105067 0.058
+2 MILWAUKEE WI        63952.   959275 0.015
+3 WAYNE     MI        60334.  2111687 0.035
+4 CUYAHOGA  OH        54313.  1412140 0.026
+5 DU PAGE   IL        39083.   781666 0.02 
+6 MARION    IN        34659.   797159 0.023
+7 HAMILTON  OH        34649.   866228 0.025
+8 FRANKLIN  OH        28278.   961437 0.034
+9 MACOMB    MI        25621.   717400 0.028</code></pre>
+</div>
+</div>
+<p>Based on the results above, there are a total of nine counties with a population density above 25,000. These counties include: Cook, Milwaukee, Wayne, Cuyahoga, Du Page, Marion, Hamilton, Franklin and Macomb.</p>
+<p>Part b:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(popdensity <span class="sc">==</span> <span class="fu">max</span>(popdensity, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, popdensity, poptotal, area)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  county state popdensity poptotal  area
+  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;    &lt;int&gt; &lt;dbl&gt;
+1 COOK   IL        88018.  5105067 0.058</code></pre>
+</div>
+</div>
+<p>Based on the result above, the county with the highest population density is Cook.</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="question-4" class="level3">
+<h3 class="anchored" data-anchor-id="question-4">Question 4</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_density =</span> <span class="fu">median</span>(popdensity, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">q1 =</span> <span class="fu">quantile</span>(popdensity, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">q3 =</span> <span class="fu">quantile</span>(popdensity, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  median_density    q1    q3
+           &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1          1156.  622.  2330</code></pre>
+</div>
+</div>
+<p>The distribution of population density of counties is unimodal and extremely right-skewed. A typical Midwestern county has population density of 1156 people per unit area. The middle 50% of the counties have population densities between 622 to 2330 people per unit area.</p>
+<p>*Please note that the data are rounded to the nearest whole number.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="question-5" class="level3">
 <h3 class="anchored" data-anchor-id="question-5">Question 5</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">metro =</span> <span class="fu">if_else</span>(inmetro <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(state, metro) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   state metro     n proportion
+   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;      &lt;dbl&gt;
+ 1 IL    No       74      0.725
+ 2 IL    Yes      28      0.275
+ 3 IN    No       55      0.598
+ 4 IN    Yes      37      0.402
+ 5 MI    No       58      0.699
+ 6 MI    Yes      25      0.301
+ 7 OH    No       48      0.545
+ 8 OH    Yes      40      0.455
+ 9 WI    No       52      0.722
+10 WI    Yes      20      0.278</code></pre>
+</div>
+</div>
+<p>Here is a table with results from the calculation above displayed and rounded of to nearest percentage:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Metro or not</th>
+<th>Proportion of population in the area</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IL</td>
+<td>No</td>
+<td>73%</td>
+</tr>
+<tr class="even">
+<td>IL</td>
+<td>Yes</td>
+<td>27%</td>
+</tr>
+<tr class="odd">
+<td>IN</td>
+<td>No</td>
+<td>60%</td>
+</tr>
+<tr class="even">
+<td>IN</td>
+<td>Yes</td>
+<td>40%</td>
+</tr>
+<tr class="odd">
+<td>MI</td>
+<td>No</td>
+<td>70%</td>
+</tr>
+<tr class="even">
+<td>MI</td>
+<td>Yes</td>
+<td>30%</td>
+</tr>
+<tr class="odd">
+<td>OH</td>
+<td>No</td>
+<td>55%</td>
+</tr>
+<tr class="even">
+<td>OH</td>
+<td>Yes</td>
+<td>45%</td>
+</tr>
+<tr class="odd">
+<td>WI</td>
+<td>No</td>
+<td>72%</td>
+</tr>
+<tr class="even">
+<td>WI</td>
+<td>Yes</td>
+<td>28%</td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="question-6" class="level3">
 <h3 class="anchored" data-anchor-id="question-6">Question 6</h3>
+<p>Part a:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    percollege <span class="sc">&lt;</span> <span class="dv">12</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    percbelowpoverty <span class="sc">&gt;</span> <span class="dv">45</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, percbelowpoverty, percollege)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  county    state percbelowpoverty percollege
+  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+1 MENOMINEE WI                48.7       7.34</code></pre>
+</div>
+</div>
+<p>The outlier in the orange square is the county Menominee.</p>
+<p>Part b:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    percollege <span class="sc">&gt;</span> <span class="dv">40</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    percbelowpoverty <span class="sc">&lt;</span> <span class="dv">20</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, percbelowpoverty, percollege)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  county    state percbelowpoverty percollege
+  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+1 CHAMPAIGN IL               15.6        41.3
+2 DU PAGE   IL                2.71       42.8
+3 HAMILTON  IN                3.59       42.1
+4 WASHTENAW MI               12.2        48.1
+5 DANE      WI               10.5        43.6</code></pre>
+</div>
+</div>
+<p>The outliers in the red square are: Champaign, Du Page, Hamilton, Washtenaw, Dane.</p>
+<p>Part c:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    (percollege <span class="sc">&lt;</span> <span class="dv">12</span> <span class="sc">&amp;</span> percbelowpoverty <span class="sc">&gt;</span> <span class="dv">45</span>) <span class="sc">|</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    (percollege <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> percbelowpoverty <span class="sc">&lt;</span> <span class="dv">20</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, percbelowpoverty, percollege)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  county    state percbelowpoverty percollege
+  &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+1 CHAMPAIGN IL               15.6       41.3 
+2 DU PAGE   IL                2.71      42.8 
+3 HAMILTON  IN                3.59      42.1 
+4 WASHTENAW MI               12.2       48.1 
+5 DANE      WI               10.5       43.6 
+6 MENOMINEE WI               48.7        7.34</code></pre>
+</div>
+</div>
+<p>Above is a list of all the outliers in the orange and red square combined.</p>
+<p>Part d:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>midwest <span class="ot">&lt;-</span> midwest <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">potential_outlier =</span> <span class="fu">if_else</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      (percollege <span class="sc">&lt;</span> <span class="dv">12</span> <span class="sc">&amp;</span> percbelowpoverty <span class="sc">&gt;</span> <span class="dv">45</span>) <span class="sc">|</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>      (percollege <span class="sc">&gt;</span> <span class="dv">40</span> <span class="sc">&amp;</span> percbelowpoverty <span class="sc">&lt;</span> <span class="dv">20</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Yes"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"No"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>midwest <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(county, state, percbelowpoverty, percollege, potential_outlier) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(potential_outlier)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 437 × 5
+   county    state percbelowpoverty percollege potential_outlier
+   &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;            
+ 1 ADAMS     IL               13.2        19.6 No               
+ 2 ALEXANDER IL               32.2        11.2 No               
+ 3 BOND      IL               12.1        17.0 No               
+ 4 BOONE     IL                7.21       17.3 No               
+ 5 BROWN     IL               13.5        14.5 No               
+ 6 BUREAU    IL               10.4        18.9 No               
+ 7 CALHOUN   IL               15.1        11.9 No               
+ 8 CARROLL   IL               11.7        16.2 No               
+ 9 CASS      IL               13.9        14.1 No               
+10 CHRISTIAN IL               11.7        13.6 No               
+# ℹ 427 more rows</code></pre>
+</div>
+</div>
+<p>The updated dataset, <em>midwest</em>, now contains an additional column called potential_outlier, which indicates whether a county is included in the list of potential outliers identified in part c.</p>
+<p>Part e:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(midwest, <span class="fu">aes</span>(<span class="at">x =</span> percollege, <span class="at">y =</span> percbelowpoverty, <span class="at">color =</span> potential_outlier)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Percentage with a college degree"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Percentage below poverty"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Percentage with a college degree versus poverty rate"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Potential outliers highlighted"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lab-02_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Above is the visualization of the relationship between college education and poverty, with colour highlighting the potential outliers in blue.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="question-7" class="level3">
 <h3 class="anchored" data-anchor-id="question-7">Question 7</h3>
+<p>Part a:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>state_population <span class="ot">&lt;-</span> midwest <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_population =</span> <span class="fu">sum</span>(poptotal, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_population))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>state_population</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  state total_population
+  &lt;chr&gt;            &lt;int&gt;
+1 IL            11430602
+2 OH            10847115
+3 MI             9295297
+4 IN             5544159
+5 WI             4891769</code></pre>
+</div>
+</div>
+<p>Part b:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>state_population <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">population_proportion =</span> total_population <span class="sc">/</span> <span class="fu">sum</span>(total_population)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(population_proportion))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  state total_population population_proportion
+  &lt;chr&gt;            &lt;int&gt;                 &lt;dbl&gt;
+1 IL            11430602                 0.272
+2 OH            10847115                 0.258
+3 MI             9295297                 0.221
+4 IN             5544159                 0.132
+5 WI             4891769                 0.116</code></pre>
+</div>
+</div>
+<p>Part c: Illinois is the most populous Midwestern state, containing 27% of the total Midwest population. Wisconsin is the least populous state, accounting for only 12% of the Midwest population.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="question-8" class="level3">
