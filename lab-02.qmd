@@ -240,4 +240,86 @@ Based on the result above, Wisconsin has the lowest average percentage of popula
 
 ## Part 2
 
+Setting up data frame:
+
+```{r}
+df <- tibble(
+  var_1 = c(10, 20, 30, 40, 50),
+  var_2 = c("Pizza", "Burger", "Pizza", "Pizza", "Burger"),
+  var_3 = c("Apple", "Apple", "Pear", "Pear", "Banana")
+)
+
+df
+
+```
+
 ### Question 9
+
+Part a:
+
+```{r}
+df |>
+  arrange(var_2)
+```
+
+The arrange () function reorders the rows of the data frame alphabetically by data in the column var_2.
+
+Part b:
+
+```{r}
+df |>
+  group_by(var_2)
+```
+
+The group_by () function groups the data frame by the variable var_2. It doesn't change the appearance of the data set, but it does createsgroups internally so that subsequent operations are performed separately for each group.
+
+Part c:
+
+```{r}
+df |>
+  group_by(var_2) |>
+  summarize(mean_var_1 = mean(var_1))
+```
+
+The pipeline first groups the data by var_2, then calculates the mean of var_1 within each group that is created. Therefore it computes the mean of var_1 separately for each category in var_2.
+
+Part d:
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1))
+```
+
+This pipeline groups the data frame by both var_2 and var_3, and then calculates the mean of var_1 within each unique combination of var_2 and var_3. The message displays:
+
+```         
+`summarise()` has grouped output by 'var_2'. You can override using the `.groups`
+argument.
+```
+
+It indicates that after applying the summarize () function, the resulting data frame remains grouped by var_2. The message also notes that this behavior can be overridden by specifying the .groups argument, if an ungrouped output is desired.
+
+Part e:
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+```
+
+This pipeline repeats the same grouped mean calculation as part d, but the .groups = "drop" argument tells summarize () to remove all grouping from the output, thereby un-grouping the output. Compared to the output in part d, the output in part 3 results in tibbles that is not grouped. No message (as shown in part d) is showing, suggesting that the output is a regular ungrouped data frame. However, it is also worth to note that the rows and values are the same in both part d and e.
+
+Part f:
+
+```{r}
+df |>
+  group_by(var_2, var_3) |>
+  summarize(mean_var_1 = mean(var_1), .groups = "drop")
+
+df |>
+  group_by(var_2, var_3) |>
+  mutate(mean_var_1 = mean(var_1))
+```
+
+Pipeline 1 collapses the data and returns one row per group (var_2, var_3) with the mean of var_1. On the other hand, pipeline 2 does not collapse the data. Instead, it keeps all original rows, but adds a new column (mean_var_1) on top of existing rows where every row in the same group gets the same group mean value.
